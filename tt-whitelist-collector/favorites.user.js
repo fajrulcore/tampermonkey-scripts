@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TikTok Favorites URL Collector
 // @namespace    https://github.com/fajrulcore/tampermonkey-scripts/tree/main/tt-whitelist-collector
-// @version      1.2
+// @version      1.3
 // @description  Collect favorite TikTok video links easily on Chrome & Firefox Desktop
 // @author       fajrulcore
 // @match        https://www.tiktok.com/*
@@ -13,20 +13,16 @@
 (function () {
     'use strict';
 
+    // Ambil semua URL video TikTok dari <a>
     function fetchAllURL() {
-        const div = document.querySelector('div[data-e2e="favorites-item-list"][mode="compact"].css-gamknx-DivVideoFeedV2.ecyq5ls0');
-
-        if (div) {
-            const links = div.querySelectorAll('a');
-            const urls = Array.from(links)
-                .map(link => link.href)
-                .filter(href => href.startsWith('https://www.tiktok.com/'));
-            return urls;
-        } else {
-            return [];
-        }
+        const links = document.querySelectorAll('a[href^="https://www.tiktok.com/"]');
+        const urls = Array.from(links)
+            .map(link => link.href)
+            .filter(href => /\/video\/\d+/.test(href)); // Pastikan hanya URL video
+        return [...new Set(urls)]; // Hilangkan duplikat
     }
 
+    // Download ke file .txt
     function downloadTxt(dataArray, fileName = 'tiktok-url.txt') {
         const blob = new Blob([dataArray.join('\n')], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
@@ -41,7 +37,8 @@
         URL.revokeObjectURL(url);
     }
 
-    function CreateButton() {
+    // Buat tombol download
+    function createButton() {
         const button = document.createElement('button');
         button.textContent = 'Download URL';
         Object.assign(button.style, {
@@ -63,7 +60,7 @@
             if (urls.length > 0) {
                 downloadTxt(urls);
             } else {
-                alert('No TikTok URLs found in targeted elements.');
+                alert('No TikTok video URLs found.');
             }
         };
 
@@ -71,7 +68,7 @@
     }
 
     window.addEventListener('load', () => {
-        setTimeout(CreateButton, 3000);
+        setTimeout(createButton, 3000);
     });
 
 })();
