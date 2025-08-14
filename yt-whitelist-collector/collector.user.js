@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         YT Whitelist Collector (desktop)
-// @namespace    
-// @version      1.0
+// @namespace    https://github.com/fajrulcore/tampermonkey-scripts
+// @version      1.1
 // @description  Collect whitelist links from YouTube Watch Later easily, support version for Chrome & Firefox Desktop
 // @author       fajrulcore
-// @match        
-// @updateURL    
-// @downloadURL  
+// @match        https://m.youtube.com/playlist?list=WL
+// @updateURL    https://raw.githubusercontent.com/fajrulcore/tampermonkey-scripts/main/yt-whitelist-collector/collector.user.js
+// @downloadURL  https://raw.githubusercontent.com/fajrulcore/tampermonkey-scripts/main/yt-whitelist-collector/collector.user.js
 // @grant        none
 // ==/UserScript==
 
