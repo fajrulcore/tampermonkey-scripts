@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         TikTok Liked URL Collector 
 // @namespace    https://github.com/fajrulcore/tampermonkey-scripts/tree/main/tt-whitelist-collector
-// @version      1.1
+// @version      1.2
 // @description  Collect liked TikTok video links easily. Available for Chrome & Firefox Desktop.
 // @author       fajrulcore
 // @match        https://www.tiktok.com/*
-// @updateURL    https://raw.githubusercontent.com/fajrulcore/tampermonkey-scripts/main/tt-whitelist-collector/favorites.user.js
-// @downloadURL  https://raw.githubusercontent.com/fajrulcore/tampermonkey-scripts/main/tt-whitelist-collector/favorites.user.js
+// @updateURL    https://raw.githubusercontent.com/fajrulcore/tampermonkey-scripts/main/tt-whitelist-collector/liked.user.js
+// @downloadURL  https://raw.githubusercontent.com/fajrulcore/tampermonkey-scripts/main/tt-whitelist-collector/liked.user.js
 // @grant        none
 // ==/UserScript==
 
