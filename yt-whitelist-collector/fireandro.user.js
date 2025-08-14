@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         YT Whitelist Collector (Android)
-// @namespace    
-// @version      1.0
+// @namespace    https://github.com/fajrulcore/tampermonkey-scripts/tree/main/yt-whitelist-collector
+// @version      1.1
 // @description  Collect whitelist links from YouTube Watch Later easily, support version for Firefox Android
 // @author       fajrulcore
-// @match        
-// @updateURL    
-// @downloadURL  
+// @match        https://m.youtube.com/playlist?list=WL
+// @updateURL    https://raw.githubusercontent.com/fajrulcore/tampermonkey-scripts/main/yt-whitelist-collector/fireandro.user.js
+// @downloadURL  https://raw.githubusercontent.com/fajrulcore/tampermonkey-scripts/main/yt-whitelist-collector/fireandro.user.js
 // @grant        none
 // ==/UserScript==
 
