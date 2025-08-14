@@ -4,7 +4,7 @@
 // @version      1.1
 // @description  Collect whitelist links from YouTube Watch Later easily, support version for Chrome & Firefox Desktop
 // @author       fajrulcore
-// @match        https://m.youtube.com/playlist?list=WL
+// @match        https://www.youtube.com/playlist?list=WL
 // @updateURL    https://raw.githubusercontent.com/fajrulcore/tampermonkey-scripts/main/yt-whitelist-collector/collector.user.js
 // @downloadURL  https://raw.githubusercontent.com/fajrulcore/tampermonkey-scripts/main/yt-whitelist-collector/collector.user.js
 // @grant        none
