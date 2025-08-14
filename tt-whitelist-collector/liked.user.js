@@ -11,67 +11,62 @@
 // ==/UserScript==
 
 (function () {
-    'use strict';
+  "use strict";
 
-    function fetchAllURL() {
-        const div = document.querySelector('div[data-e2e="user-liked-item-list"][mode="compact"].css-gamknx-DivVideoFeedV2.ecyq5ls0');
+  function fetchAllURL() {
+    const links = document.querySelectorAll(
+      'div[data-e2e="favorites-item"] a[href^="https://www.tiktok.com/"]'
+    );
+    const urls = Array.from(links)
+      .map((link) => link.href)
+      .filter((value, index, self) => self.indexOf(value) === index);
+    return urls;
+  }
 
-        if (div) {
-            const links = div.querySelectorAll('a');
-            const urls = Array.from(links)
-                .map(link => link.href)
-                .filter(href => href.startsWith('https://www.tiktok.com/'));
-            return urls;
-        } else {
-            return [];
-        }
-    }
+  function downloadTxt(dataArray, namaFile = "tiktok-url.txt") {
+    const blob = new Blob([dataArray.join("\n")], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
 
-    function downloadTxt(dataArray, namaFile = 'tiktok-url.txt') {
-        const blob = new Blob([dataArray.join('\n')], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = namaFile;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = namaFile;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
 
-        URL.revokeObjectURL(url);
-    }
-
-    function CreateButton() {
-        const button = document.createElement('button');
-        button.textContent = 'Download URL';
-        Object.assign(button.style, {
-            position: 'fixed',
-            bottom: '20px',
-            right: '20px',
-            zIndex: '9999',
-            padding: '10px 15px',
-            backgroundColor: '#ff0050',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
-        });
-
-        button.onclick = () => {
-            const urls = fetchAllURL();
-            if (urls.length > 0) {
-                downloadTxt(urls);
-            } else {
-                alert('No TikTok URLs found in targeted elements.');
-            }
-        };
-
-        document.body.appendChild(button);
-    }
-
-    window.addEventListener('load', () => {
-        setTimeout(CreateButton, 3000);
+  function CreateButton() {
+    const button = document.createElement("button");
+    button.textContent = "Download Loaded URLs";
+    Object.assign(button.style, {
+      position: "fixed",
+      bottom: "20px",
+      right: "20px",
+      zIndex: "9999",
+      padding: "10px 15px",
+      backgroundColor: "#ff0050",
+      color: "#fff",
+      border: "none",
+      borderRadius: "8px",
+      cursor: "pointer",
+      boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
     });
 
+    button.onclick = () => {
+      const urls = fetchAllURL();
+      if (urls.length > 0) {
+        downloadTxt(urls);
+      } else {
+        alert("No TikTok URLs found on the currently loaded page.");
+      }
+    };
+
+    document.body.appendChild(button);
+  }
+
+  window.addEventListener("load", () => {
+    setTimeout(CreateButton, 3000);
+  });
 })();
