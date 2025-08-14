@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         TikTok Favorites URL Collector
-// @namespace    https://github.com/fajrulcore/tiktok-url-collector
-// @version      1.1
+// @namespace    https://github.com/fajrulcore/tampermonkey-scripts/tree/main/tt-whitelist-collector
+// @version      1.2
 // @description  Collect favorite TikTok video links easily on Chrome & Firefox Desktop
 // @author       fajrulcore
 // @match        https://www.tiktok.com/*
-// @updateURL    https://raw.githubusercontent.com/fajrulcore/tt-whitelist-collector/main/favorites.user.js
-// @downloadURL  https://raw.githubusercontent.com/fajrulcore/tt-whitelist-collector/main/favorites.user.js
+// @updateURL    https://raw.githubusercontent.com/fajrulcore/tampermonkey-scripts/main/tt-whitelist-collector/favorites.user.js
+// @downloadURL  https://raw.githubusercontent.com/fajrulcore/tampermonkey-scripts/main/tt-whitelist-collector/favorites.user.js
 // @grant        none
 // ==/UserScript==
 
