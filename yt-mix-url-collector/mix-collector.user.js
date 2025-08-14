@@ -1,10 +1,12 @@
 // ==UserScript==
 // @name         YT Mix URL Collector
 // @namespace    https://github.com/fajrulcore/tampermonkey-scripts/tree/main/yt-mix-collector
-// @version      1.0
+// @version      1.1
 // @description  Collect all video URLs from YouTube Mix playlist
 // @author       fajrulcore
 // @match        https://www.youtube.com/watch*
+// @updateURL    https://raw.githubusercontent.com/fajrulcore/tampermonkey-scripts/main/yt-mix-url-collector/mix-collector.user.js
+// @downloadURL  https://raw.githubusercontent.com/fajrulcore/tampermonkey-scripts/main/yt-mix-url-collector/mix-collector.user.js
 // @grant        none
 // ==/UserScript==
 
