@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YT Whitelist Collector (Android)
 // @namespace    https://github.com/fajrulcore/tampermonkey-scripts/tree/main/yt-whitelist-collector
-// @version      1.1
+// @version      1.2
 // @description  Collect whitelist links from YouTube Watch Later easily, support version for Firefox Android
 // @author       fajrulcore
 // @match        https://m.youtube.com/playlist?list=WL
@@ -13,11 +13,13 @@
 (function () {
     'use strict';
 
+    // Extract the clean YouTube video URL from a link
     function cleanURL(href) {
         const match = href.match(/\/watch\?v=([^&]+)/);
         return match ? `https://www.youtube.com/watch?v=${match[1]}` : null;
     }
 
+    // Fetch all video URLs from the current page
     function fetchAllURL() {
         let links;
         if (location.host.startsWith("m.")) {
@@ -30,12 +32,13 @@
             .map(link => cleanURL(link.getAttribute('href')))
             .filter(url => url !== null);
 
-        return [...new Set(urls)]; // <-- tidak ada slice
+        return [...new Set(urls)]; // Remove duplicates
     }
 
+    // Open collected URLs in a new tab with download option
     function openInNewTab(dataArray) {
-        const hasil = dataArray.join('\n');
-        const base64Data = btoa(unescape(encodeURIComponent(hasil)));
+        const urlList = dataArray.join('\n');
+        const base64Data = btoa(unescape(encodeURIComponent(urlList)));
     
         const newTab = window.open('', '_blank');
         newTab.document.write(`
@@ -69,7 +72,7 @@
                         box-sizing: border-box;
                     }
                     #whitelist-btn {
-                    display: none;
+                        display: none;
                     }
                     .custombutton {
                         width: 100%;
@@ -105,10 +108,10 @@
                 </style>
             </head>
             <body>
-                <h2>Whitelist URLs (${dataArray.length} URL)</h2>
-                <textarea readonly>${hasil}</textarea><br>
+                <h2>Whitelist URLs (${dataArray.length} URLs)</h2>
+                <textarea readonly>${urlList}</textarea><br>
                 <button class="download0 custombutton" onclick="downloadFile()">Download .txt</button>
-                <button class="close custombutton" onclick="window.close()">Tutup Tab</button>
+                <button class="close custombutton" onclick="window.close()">Close Tab</button>
                 <script>
                     function downloadFile() {
                         const link = document.createElement('a');
@@ -125,37 +128,38 @@
         newTab.document.close();
     }
     
-
+    // Add floating download button to the page
     function addButton() {
         if (document.getElementById('whitelist-btn')) return;
 
-        const tombol = document.createElement('button');
-        tombol.id = 'whitelist-btn';
-        tombol.textContent = '📥 Download Semua WL';
-        tombol.style.position = 'fixed';
-        tombol.style.bottom = '20px';
-        tombol.style.right = '20px';
-        tombol.style.zIndex = '999999';
-        tombol.style.padding = '12px 18px';
-        tombol.style.backgroundColor = '#ff0000';
-        tombol.style.color = '#fff';
-        tombol.style.border = 'none';
-        tombol.style.borderRadius = '8px';
-        tombol.style.cursor = 'pointer';
-        tombol.style.fontSize = '14px';
+        const button = document.createElement('button');
+        button.id = 'whitelist-btn';
+        button.textContent = '📥 Download All WL';
+        button.style.position = 'fixed';
+        button.style.bottom = '20px';
+        button.style.right = '20px';
+        button.style.zIndex = '999999';
+        button.style.padding = '12px 18px';
+        button.style.backgroundColor = '#ff0000';
+        button.style.color = '#fff';
+        button.style.border = 'none';
+        button.style.borderRadius = '8px';
+        button.style.cursor = 'pointer';
+        button.style.fontSize = '14px';
 
-        tombol.onclick = () => {
+        button.onclick = () => {
             const urls = fetchAllURL();
             if (urls.length > 0) {
                 openInNewTab(urls);
             } else {
-                alert('❌ Tidak ada URL ditemukan.');
+                alert('❌ No URLs found.');
             }
         };
 
-        document.body.appendChild(tombol);
+        document.body.appendChild(button);
     }
 
+    // Check if the current page is the Watch Later playlist and add the button
     setInterval(() => {
         if (location.href.includes('playlist?list=WL')) {
             addButton();
