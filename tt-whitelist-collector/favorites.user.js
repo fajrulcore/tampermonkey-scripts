@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TikTok Favorites URL Collector
 // @namespace    https://github.com/fajrulcore/tampermonkey-scripts/tree/main/tt-whitelist-collector
-// @version      1.3
+// @version      1.4
 // @description  Collect favorite TikTok video links easily on Chrome & Firefox Desktop
 // @author       fajrulcore
 // @match        https://www.tiktok.com/*
@@ -13,16 +13,14 @@
 (function () {
     'use strict';
 
-    // Ambil semua URL video TikTok dari <a>
     function fetchAllURL() {
         const links = document.querySelectorAll('a[href^="https://www.tiktok.com/"]');
         const urls = Array.from(links)
             .map(link => link.href)
-            .filter(href => /\/video\/\d+/.test(href)); // Pastikan hanya URL video
-        return [...new Set(urls)]; // Hilangkan duplikat
+            .filter(href => /\/video\/\d+/.test(href));
+        return [...new Set(urls)];
     }
 
-    // Download ke file .txt
     function downloadTxt(dataArray, fileName = 'tiktok-url.txt') {
         const blob = new Blob([dataArray.join('\n')], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
@@ -37,7 +35,6 @@
         URL.revokeObjectURL(url);
     }
 
-    // Buat tombol download
     function createButton() {
         const button = document.createElement('button');
         button.textContent = 'Download URL';
